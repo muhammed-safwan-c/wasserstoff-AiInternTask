@@ -1,5 +1,8 @@
 from fastapi import FastAPI
 from fastapi.middleware.cors import CORSMiddleware
+from .api import ocr
+
+
 
 app = FastAPI(
     title="Document Research & Theme Identifier",
@@ -19,3 +22,6 @@ app.add_middleware(
 @app.get("/")
 def read_root():
     return {"message": "Wasserstoff AI Intern Task Backend is running 🚀"}
+
+
+app.include_router(ocr.router, prefix="/ocr", tags=["OCR"])
