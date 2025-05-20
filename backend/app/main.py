@@ -1,6 +1,10 @@
 from fastapi import FastAPI
 from fastapi.middleware.cors import CORSMiddleware
 from .api import ocr
+from app.api import pdf, docs 
+from app.api.endpoints import qa
+
+from app.api.endpoints import synthesize
 
 
 
@@ -25,3 +29,15 @@ def read_root():
 
 
 app.include_router(ocr.router, prefix="/ocr", tags=["OCR"])
+
+
+app.include_router(pdf.router, prefix="/pdf", tags=["PDF"])
+
+
+app.include_router(docs.router)  # ← Register the /documents/ endpoint here
+
+
+app.include_router(qa.router, tags=["Query & QA"])
+
+
+app.include_router(synthesize.router, tags=["Theme Synthesis"])
