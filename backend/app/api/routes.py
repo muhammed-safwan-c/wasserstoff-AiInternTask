@@ -1,6 +1,6 @@
 from fastapi import APIRouter
 from pydantic import BaseModel
-from services.vector_store import query_vectorstore
+from app.services.vector_store import query_vectorstore
 
 router = APIRouter()
 
@@ -16,6 +16,6 @@ async def search_documents(request: QueryRequest):
             {
                 "text": doc,
                 "metadata": meta
-            } for doc, meta in zip(results['documents'][0], results['metadatas'][0])
+            } for doc, meta in zip(results.get('documents', [[]])[0], results.get('metadatas', [[]])[0])
         ]
     }
